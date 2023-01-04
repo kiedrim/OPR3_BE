@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "application",
+      "type": "java.lang.String",
+      "description": "Description for application."
+    },
+    {
+      "name": "spring",
+      "type": "java.lang.String",
+      "description": "Description for spring."
+    }
+  ] }
