@@ -30,8 +30,13 @@ public class Employee  {
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "employee_project",
-    joinColumns = @JoinColumn(name = "employee_id"),
-    inverseJoinColumns = @JoinColumn(name = "project_id"))
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id"))
     private Set<Project> assignedProjects = new HashSet<>();
 
+
+    @ManyToOne
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinColumn(name = "department_id")
+    private Department department;
 }
