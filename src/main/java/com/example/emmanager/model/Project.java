@@ -4,32 +4,33 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "project")
-@Table(name = "project")
+@Entity
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "project_id")
     private Long id;
 
-    @Column(name = "projectName", nullable = false)
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "projects"
+    )
+    @JsonIgnore
+    private Set<Employee> employees;
+
     private String projectName;
 
-    @JsonIgnore
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(mappedBy = "assignedProjects")
-    private Set<Employee> employeeSet = new HashSet<>();
+    public void update(Project newProject){
+        setProjectName(newProject.getProjectName());
+    }
 
 
 

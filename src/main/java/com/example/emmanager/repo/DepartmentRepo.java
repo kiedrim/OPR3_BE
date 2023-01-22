@@ -2,11 +2,12 @@ package com.example.emmanager.repo;
 
 import com.example.emmanager.model.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
 
+@Repository
 public interface DepartmentRepo extends JpaRepository<Department, Long> {
-    void deleteDepartmentById(Long id);
+    Department findDepartmentsById(Long id);
 
-    Optional<Department> findDepartmentById(Long id);
+
 }

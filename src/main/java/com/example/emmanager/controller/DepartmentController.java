@@ -2,50 +2,40 @@ package com.example.emmanager.controller;
 
 import com.example.emmanager.model.Department;
 import com.example.emmanager.service.DepartmentService;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
-@ComponentScan
-@RequestMapping("/departments")
+@RequestMapping("/departments/")
+@CrossOrigin
 public class DepartmentController {
-    private final DepartmentService departmentService;
-
-    public DepartmentController(DepartmentService departmentService){
-        this.departmentService=departmentService;
-    }
+    @Autowired
+    private DepartmentService departmentService;
 
     @GetMapping("all")
-    public ResponseEntity<List<Department>> getAllEmployees(){
-        List<Department> departments = departmentService.findAllDepartments();
-        return new ResponseEntity<>(departments, HttpStatus.OK);
+    ResponseEntity<Object> getAll(){
+        return departmentService.getAllDepartments();
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Department> getEmployeeById(@PathVariable("id") Long id){
-        Department department = departmentService.findDepartmentById(id);
-        return new ResponseEntity<>(department, HttpStatus.OK);
+    @GetMapping("get/{depId}")
+    ResponseEntity<Object> getDepartmentById(@PathVariable("depId") Long depId) {
+        return departmentService.getDepartmentById(depId);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Department> addEmployee(@RequestBody Department department){
-        Department newEmployee = departmentService.addDepartment(department);
-        return  new ResponseEntity<>(newEmployee,HttpStatus.CREATED);
+    @PostMapping(value = "add")
+    ResponseEntity<Object> addCar(@RequestBody Department department) {
+        return departmentService.addDepartment(department);
+    }
+    @PutMapping("edit/{depId}")
+    public ResponseEntity<Object> updateDepartment(@RequestBody Department newDepartment, @PathVariable("depId") Long depId){
+        return departmentService.updateDepartment(newDepartment,depId);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Department> updateEmployee(@RequestBody Department department){
-        Department updateEmployee = departmentService.updateDepartment(department);
-        return  new ResponseEntity<>(updateEmployee,HttpStatus.OK);
+    @DeleteMapping(value = "delete/{depId}")
+    ResponseEntity<Object> deleteDepartment(@PathVariable("depId") Long depId) {
+        return departmentService.deleteDepartment(depId);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Department> deleteEmployee(@PathVariable("id") Long id){
-        departmentService.deleteDepartment(id);
-        return  new ResponseEntity<>(HttpStatus.OK);
-    }
 }

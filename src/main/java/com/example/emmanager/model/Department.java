@@ -1,20 +1,17 @@
 package com.example.emmanager.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "department")
+@Table(name = "departments")
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +20,13 @@ public class Department {
     private String depName;
 
 
-    @OneToMany(mappedBy = "department")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<Employee> employees = new HashSet<>();
+
+    @OneToMany(mappedBy = "empDepartment", cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Employee> employees;
+
+    public void update(Department newDepartment){
+        setDepName(newDepartment.getDepName());
+        setEmployees(newDepartment.getEmployees());
+    }
 }

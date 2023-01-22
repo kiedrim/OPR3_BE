@@ -1,42 +1,23 @@
 package com.example.emmanager.service;
 
-import com.example.emmanager.exception.UserNotFoundException;
 import com.example.emmanager.model.Department;
-import com.example.emmanager.repo.DepartmentRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
 
-import javax.transaction.Transactional;
-import java.util.List;
 
-@Service
-@Transactional
-public class DepartmentService {
-    private final DepartmentRepo departmentRepo;
+public interface DepartmentService {
 
-    @Autowired
-    public DepartmentService(DepartmentRepo departmentRepo){
-        this.departmentRepo = departmentRepo;
-    }
+    Boolean existsByDepartmentId(Long depId);
 
-    public Department addDepartment(Department department){
-        return departmentRepo.save(department);
-    }
+    Department findDepartmentByDepartmentId(Long depId);
 
-    public List<Department> findAllDepartments(){
-        return  departmentRepo.findAll();
-    }
-    public Department updateDepartment(Department department){
-        return departmentRepo.save(department);
-    }
+    ResponseEntity<Object> getAllDepartments();
 
-    public Department findDepartmentById(Long id){
-        return departmentRepo.findDepartmentById(id)
-                .orElseThrow(() -> new UserNotFoundException("Department by id" + id + "was not found"));
-    }
+    ResponseEntity<Object> getDepartmentById(Long depId);
 
-    public void deleteDepartment(Long id){
-        departmentRepo.deleteDepartmentById(id);
-    }
+    ResponseEntity<Object> addDepartment(Department department);
+
+    ResponseEntity<Object> updateDepartment(Department department, Long depId);
+
+    ResponseEntity<Object> deleteDepartment(Long id);
 
 }

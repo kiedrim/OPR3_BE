@@ -2,6 +2,7 @@ package com.example.emmanager.controller;
 
 import com.example.emmanager.model.Project;
 import com.example.emmanager.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,42 +12,42 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@ComponentScan
+@CrossOrigin
 @RequestMapping("/projects")
 public class ProjectController {
-    private final ProjectService projectService;
+    @Autowired
+    private ProjectService projectService;
 
-    public ProjectController(ProjectService projectService){
-        this.projectService = projectService;
+    @GetMapping("/all")
+    ResponseEntity<Object> getAll(){
+        return projectService.getAllProjects();
     }
-    @GetMapping("all")
-    public ResponseEntity<List<Project>> getAllProjects(){
-        List<Project> Projects =projectService.findAllProjects();
-        return new ResponseEntity<>(Projects, HttpStatus.OK);
+
+    @GetMapping("get/{projectId}")
+    ResponseEntity<Object> getProjectById(@PathVariable("projectId") Long proId){
+        return projectService.getProjectById(proId);
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Project> getProjectById(@PathVariable("id") Long id){
-        Project Project = projectService.findProjectById(id);
-        return new ResponseEntity<>(Project, HttpStatus.OK);
+    ResponseEntity<Object> findProjectById(@PathVariable("id") Long id){
+        return new ResponseEntity<>(projectService.findProjectByProjectId(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Project> addProject(@RequestBody Project Project){
-        Project newProject = projectService.addProject(Project);
-        return new ResponseEntity<>(newProject, HttpStatus.CREATED);
+    public ResponseEntity<Object> addProject(@RequestBody Project project){
+        return projectService.addProject(project);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Project> updateProject(@RequestBody Project Project){
-        Project updateProject = projectService.updateProject(Project);
-        return new ResponseEntity<>(updateProject, HttpStatus.OK);
+    @PutMapping("/update/{proId}")
+    public ResponseEntity<Object> updateProject(@RequestBody Project project, @PathVariable("proId") Long proId){
+        return projectService.updateProject(project, proId);
     }
 
     @Transactional
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteProject(@PathVariable("id") Long id){
-        projectService.deleteProject(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Project project = projectService.findProjectByProjectId(id);
+        project.setEmployees(null);
+        return new ResponseEntity<>(projectService.deleteProject(id),HttpStatus.OK);
     }
 }

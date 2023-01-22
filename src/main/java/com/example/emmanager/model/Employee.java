@@ -5,38 +5,46 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employee  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, name = "employee_id")
     private Long id;
+
     private String name;
     private String email;
     private String jobTitle;
     private String phone;
     private String imageUrl;
-    @Column(nullable = false, updatable = false)
     private String employeeCode;
 
-    @ManyToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(name = "employee_project",
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "dep_id", nullable = true)
+    private Department empDepartment;
+
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name = "project_employee",
             joinColumns = @JoinColumn(name = "employee_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id"))
-    private Set<Project> assignedProjects = new HashSet<>();
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private Set<Project> projects;
 
-
-    @ManyToOne
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinColumn(name = "department_id")
-    private Department department;
+    public void update(Employee newEmployee) {
+        setName(newEmployee.getName());
+        setEmail(newEmployee.getEmail());
+        setJobTitle(newEmployee.getJobTitle());
+        setPhone(newEmployee.getPhone());
+        setImageUrl(newEmployee.getImageUrl());
+        setEmpDepartment(newEmployee.getEmpDepartment());
+        setProjects(newEmployee.getProjects());
+    }
 }

@@ -12,6 +12,7 @@ spring:
     hibernate:
       ddl-auto: create-drop
     open-in-view: off
+    show-sql: true
 
 application:
   jwt:

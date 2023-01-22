@@ -1,41 +1,24 @@
 package com.example.emmanager.service;
 
-import com.example.emmanager.exception.UserNotFoundException;
-import com.example.emmanager.model.Job;
 import com.example.emmanager.model.Project;
-import com.example.emmanager.repo.JobRepo;
-import com.example.emmanager.repo.ProjectRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-@Service
-public class ProjectService {
-    private final ProjectRepo projectRepo;
+public interface ProjectService {
 
-    @Autowired
-    public ProjectService(ProjectRepo projectRepo){
-        this.projectRepo = projectRepo;
-    }
+    Boolean existsByProjectId(Long proId);
 
-    public Project addProject(Project project){
-        return projectRepo.save(project);
-    }
+    Project findProjectByProjectId(Long proId);
 
-    public List<Project> findAllProjects(){
-        return  projectRepo.findAll();
-    }
+    ResponseEntity<Object>getAllProjects();
 
-    public Project updateProject(Project project){
-        return projectRepo.save(project);
-    }
+    ResponseEntity<Object> getAllProjectsByEmployeeId(Long empId);
 
-    public Project findProjectById(Long id){
-        return projectRepo.findProjectById(id)
-                .orElseThrow(() -> new UserNotFoundException("Project by id" + id + "was not found"));
-    }
+    ResponseEntity<Object>getProjectById(Long id);
 
-    public void deleteProject(Long id){
-        projectRepo.deleteProjectById(id);
-    }
+    ResponseEntity<Object>addProject(Project newProject);
+
+    ResponseEntity<Object>updateProject(Project updatedProject, Long proId);
+
+    ResponseEntity<Object>deleteProject(Long proId);
+
 }
