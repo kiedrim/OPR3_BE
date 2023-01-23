@@ -30,8 +30,6 @@ public class EmployeeController {
 
     @PostMapping(value = "/add/{depId}")
     public ResponseEntity<Object> addEmployee(@RequestBody Employee employee, @PathVariable("depId") Long depId){
-        System.out.println("dostal ses tu");
-        System.out.println(employee.toString());
         return employeeService.addEmployee(employee, depId);
     }
 

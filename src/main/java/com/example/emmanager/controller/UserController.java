@@ -67,8 +67,6 @@ public class UserController {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         User user = (User) authentication.getPrincipal();
-       // user.setJobs(null);
-
 
         return ResponseEntity.ok(new JwtResponse(
                 jwt,

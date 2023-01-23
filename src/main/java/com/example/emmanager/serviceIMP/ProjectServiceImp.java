@@ -1,25 +1,18 @@
 package com.example.emmanager.serviceIMP;
 
-import com.example.emmanager.model.Employee;
 import com.example.emmanager.model.Project;
 import com.example.emmanager.repo.ProjectRepo;
-import com.example.emmanager.service.EmployeeService;
 import com.example.emmanager.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ProjectServiceImp implements ProjectService {
     @Autowired
     private ProjectRepo projectRepo;
-
-  /*  @Autowired
-    private EmployeeService employeeService;*/
 
     @Override
     public Boolean existsByProjectId(Long proId){

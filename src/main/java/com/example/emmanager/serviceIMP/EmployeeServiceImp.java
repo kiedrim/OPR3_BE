@@ -41,10 +41,6 @@ public class EmployeeServiceImp implements EmployeeService {
     @Override
     public ResponseEntity<Object> getAllEmployees() {
         List<Employee> ret = employeeRepo.findAll();
-        /*ret.forEach(employee -> {
-            employee.setEmpDepartment(null);
-            employee.setProjects(null);
-        });*/
 
         return ResponseEntity.ok(ret);
     }
