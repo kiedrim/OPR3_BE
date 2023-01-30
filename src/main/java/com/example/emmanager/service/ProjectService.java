@@ -5,15 +5,11 @@ import org.springframework.http.ResponseEntity;
 
 public interface ProjectService {
 
-    Boolean existsByProjectId(Long proId);
-
     Project findProjectByProjectId(Long proId);
 
     ResponseEntity<Object>getAllProjects();
 
-    ResponseEntity<Object> getAllProjectsByEmployeeId(Long empId);
-
-    ResponseEntity<Object>getProjectById(Long id);
+    ResponseEntity<Project>getProjectById(Long id);
 
     ResponseEntity<Object>addProject(Project newProject);
 

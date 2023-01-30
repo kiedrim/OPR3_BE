@@ -5,15 +5,9 @@ import org.springframework.http.ResponseEntity;
 
 public interface EmployeeService {
 
-    Boolean existsByEmployeeId(Long employeeId);
-
-    Employee findEmployeeByEmployeeId(Long employeeId);
-
     ResponseEntity<Object> getAllEmployees();
 
-    ResponseEntity<Object> getAllEmployeesByDepartmentId(Long userId);
-
-    ResponseEntity<Object> getEmployeeById(Long employeeId);
+    ResponseEntity<Employee> getEmployeeById(Long employeeId);
 
     ResponseEntity<Object> addEmployee(Employee employee, Long depId);
 

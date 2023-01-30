@@ -6,18 +6,13 @@ import com.example.emmanager.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProjectServiceImp implements ProjectService {
+
     @Autowired
     private ProjectRepo projectRepo;
-
-    @Override
-    public Boolean existsByProjectId(Long proId){
-        return projectRepo.existsById(proId);
-    }
 
     @Override
     public Project findProjectByProjectId(Long proId) {
@@ -34,17 +29,9 @@ public class ProjectServiceImp implements ProjectService {
         return ResponseEntity.ok(ret);
     }
 
-    @Override
-    public ResponseEntity<Object> getAllProjectsByEmployeeId(Long empId) {
-
-        List<Project> ret = new ArrayList<>();
-
-
-        return ResponseEntity.ok(ret);
-    }
 
     @Override
-    public ResponseEntity<Object> getProjectById(Long proId) {
+    public ResponseEntity<Project> getProjectById(Long proId) {
         if (!projectRepo.existsById(proId))
             return ResponseEntity.notFound().build();
 
@@ -84,8 +71,5 @@ public class ProjectServiceImp implements ProjectService {
 
         return ResponseEntity.ok().build();
     }
-
-
-
 
 }

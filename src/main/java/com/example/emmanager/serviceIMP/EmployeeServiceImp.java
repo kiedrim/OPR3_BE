@@ -10,12 +10,10 @@ import com.example.emmanager.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImp implements EmployeeService {
@@ -29,16 +27,6 @@ public class EmployeeServiceImp implements EmployeeService {
     private ProjectService projectService;
 
     @Override
-    public Boolean existsByEmployeeId(Long empId) {
-        return employeeRepo.existsById(empId);
-    }
-
-    @Override
-    public Employee findEmployeeByEmployeeId(Long empId) {
-        return employeeRepo.findEmployeeById(empId);
-    }
-
-    @Override
     public ResponseEntity<Object> getAllEmployees() {
         List<Employee> ret = employeeRepo.findAll();
 
@@ -46,22 +34,7 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    @Transactional
-    public ResponseEntity<Object> getAllEmployeesByDepartmentId(Long depId) {
-        if (!departmentService.existsByDepartmentId(depId))
-            return ResponseEntity.notFound().build();
-
-        List<Employee> employees = employeeRepo.findAllByEmpDepartmentId(depId)
-                .stream()
-                .map(employee -> {
-                    employee.setProjects(employee.getProjects());
-                    return employee;
-                }).collect(Collectors.toList());
-        return ResponseEntity.ok(employees);
-    }
-
-    @Override
-    public ResponseEntity<Object> getEmployeeById(Long empId) {
+    public ResponseEntity<Employee> getEmployeeById(Long empId) {
         if (!employeeRepo.existsById(empId))
             return ResponseEntity.notFound().build();
 
@@ -79,9 +52,6 @@ public class EmployeeServiceImp implements EmployeeService {
 
         Department department = departmentService.findDepartmentByDepartmentId(depId);
 
-
-        System.out.println(department.toString());
-
         Set<Project> foundProjects = new HashSet<>();
         for (Project project : employee.getProjects()) {
             System.out.println(project.toString());
@@ -89,7 +59,6 @@ public class EmployeeServiceImp implements EmployeeService {
             foundProjects.add(project);
         }
 
-        System.out.println(foundProjects.toString());
         employee.setProjects(foundProjects);
         employee.setEmpDepartment(department);
 

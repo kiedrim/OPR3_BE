@@ -28,6 +28,7 @@ public class DepartmentController {
     ResponseEntity<Object> addCar(@RequestBody Department department) {
         return departmentService.addDepartment(department);
     }
+
     @PutMapping("edit/{depId}")
     public ResponseEntity<Object> updateDepartment(@RequestBody Department newDepartment, @PathVariable("depId") Long depId){
         return departmentService.updateDepartment(newDepartment,depId);

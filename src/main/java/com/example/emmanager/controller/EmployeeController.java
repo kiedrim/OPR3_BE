@@ -3,7 +3,6 @@ package com.example.emmanager.controller;
 import com.example.emmanager.model.Employee;
 import com.example.emmanager.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,18 +14,15 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-
     @GetMapping("all")
     public ResponseEntity<Object> getAllEmployees(){
         return employeeService.getAllEmployees();
     }
 
-
     @GetMapping("get/{employeeId}")
-    ResponseEntity<Object> getEmployeeById(@PathVariable("employeeId") Long employeeId) {
+    ResponseEntity<Employee> getEmployeeById(@PathVariable("employeeId") Long employeeId) {
         return employeeService.getEmployeeById(employeeId);
     }
-
 
     @PostMapping(value = "/add/{depId}")
     public ResponseEntity<Object> addEmployee(@RequestBody Employee employee, @PathVariable("depId") Long depId){
@@ -40,8 +36,7 @@ public class EmployeeController {
 
     @DeleteMapping("/delete/{empId}")
     public ResponseEntity<Object> deleteEmployee(@PathVariable("empId") Long empId){
-        employeeService.deleteEmployee(empId);
-        return  new ResponseEntity<>(HttpStatus.OK);
+        return employeeService.deleteEmployee(empId);
     }
 
 
