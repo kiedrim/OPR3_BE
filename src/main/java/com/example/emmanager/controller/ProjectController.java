@@ -37,8 +37,6 @@ public class ProjectController {
     @Transactional
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteProject(@PathVariable("id") Long id){
-        Project project = projectService.findProjectByProjectId(id);
-        project.setEmployees(null);
         return projectService.deleteProject(id);
     }
 }
