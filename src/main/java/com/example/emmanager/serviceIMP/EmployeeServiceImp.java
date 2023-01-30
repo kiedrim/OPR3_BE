@@ -46,7 +46,7 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<Object> addEmployee(Employee employee, Long depId) {
+    public ResponseEntity<Employee> addEmployee(Employee employee, Long depId) {
         if (!departmentService.existsByDepartmentId(depId))
             return ResponseEntity.notFound().build();
 
@@ -68,7 +68,7 @@ public class EmployeeServiceImp implements EmployeeService {
     }
 
     @Override
-    public ResponseEntity<Object> updateEmployee(Employee newEmployee, Long empId) {
+    public ResponseEntity<Employee> updateEmployee(Employee newEmployee, Long empId) {
         if (!employeeRepo.existsById(empId))
             return ResponseEntity.notFound().build();
 

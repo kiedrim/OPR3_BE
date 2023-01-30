@@ -25,18 +25,18 @@ public class ProjectController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Object> addProject(@RequestBody Project project){
+    public ResponseEntity<Project> addProject(@RequestBody Project project){
         return projectService.addProject(project);
     }
 
     @PutMapping("/update/{proId}")
-    public ResponseEntity<Object> updateProject(@RequestBody Project project, @PathVariable("proId") Long proId){
+    public ResponseEntity<Project> updateProject(@RequestBody Project project, @PathVariable("proId") Long proId){
         return projectService.updateProject(project, proId);
     }
 
     @Transactional
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteProject(@PathVariable("id") Long id){
+    public ResponseEntity<?> deleteProject(@PathVariable("id") Long id){
         return projectService.deleteProject(id);
     }
 }

@@ -20,22 +20,22 @@ public class DepartmentController {
     }
 
     @GetMapping("get/{depId}")
-    ResponseEntity<Object> getDepartmentById(@PathVariable("depId") Long depId) {
+    ResponseEntity<Department> getDepartmentById(@PathVariable("depId") Long depId) {
         return departmentService.getDepartmentById(depId);
     }
 
     @PostMapping(value = "add")
-    ResponseEntity<Object> addCar(@RequestBody Department department) {
+    ResponseEntity<Department> addDepartment(@RequestBody Department department) {
         return departmentService.addDepartment(department);
     }
 
     @PutMapping("edit/{depId}")
-    public ResponseEntity<Object> updateDepartment(@RequestBody Department newDepartment, @PathVariable("depId") Long depId){
+    public ResponseEntity<Department> updateDepartment(@RequestBody Department newDepartment, @PathVariable("depId") Long depId){
         return departmentService.updateDepartment(newDepartment,depId);
     }
 
     @DeleteMapping(value = "delete/{depId}")
-    ResponseEntity<Object> deleteDepartment(@PathVariable("depId") Long depId) {
+    ResponseEntity<?> deleteDepartment(@PathVariable("depId") Long depId) {
         return departmentService.deleteDepartment(depId);
     }
 

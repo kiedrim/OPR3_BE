@@ -25,17 +25,17 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "/add/{depId}")
-    public ResponseEntity<Object> addEmployee(@RequestBody Employee employee, @PathVariable("depId") Long depId){
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee, @PathVariable("depId") Long depId){
         return employeeService.addEmployee(employee, depId);
     }
 
     @PutMapping("/update/{empId}")
-    public ResponseEntity<Object> updateEmployee(@RequestBody Employee employee, @PathVariable("empId") Long empId){
+    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee, @PathVariable("empId") Long empId){
         return employeeService.updateEmployee(employee,empId);
     }
 
     @DeleteMapping("/delete/{empId}")
-    public ResponseEntity<Object> deleteEmployee(@PathVariable("empId") Long empId){
+    public ResponseEntity<?> deleteEmployee(@PathVariable("empId") Long empId){
         return employeeService.deleteEmployee(empId);
     }
 

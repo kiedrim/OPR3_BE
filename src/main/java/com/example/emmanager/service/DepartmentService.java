@@ -12,11 +12,11 @@ public interface DepartmentService {
 
     ResponseEntity<Object> getAllDepartments();
 
-    ResponseEntity<Object> getDepartmentById(Long depId);
+    ResponseEntity<Department> getDepartmentById(Long depId);
 
-    ResponseEntity<Object> addDepartment(Department department);
+    ResponseEntity<Department> addDepartment(Department department);
 
-    ResponseEntity<Object> updateDepartment(Department department, Long depId);
+    ResponseEntity<Department> updateDepartment(Department department, Long depId);
 
     ResponseEntity<Object> deleteDepartment(Long id);
 

@@ -35,7 +35,7 @@ public class DepartmentServiceImp implements DepartmentService {
     }
 
     @Override
-    public ResponseEntity<Object> getDepartmentById(Long depId) {
+    public ResponseEntity<Department> getDepartmentById(Long depId) {
         if (!departmentRepo.existsById(depId))
             return ResponseEntity.notFound().build();
 
@@ -46,13 +46,13 @@ public class DepartmentServiceImp implements DepartmentService {
     }
 
     @Override
-    public ResponseEntity<Object> addDepartment(Department department) {
+    public ResponseEntity<Department> addDepartment(Department department) {
         departmentRepo.save(department);
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<Object> updateDepartment(Department newDepartment, Long depId) {
+    public ResponseEntity<Department> updateDepartment(Department newDepartment, Long depId) {
         if (!departmentRepo.existsById(depId))
             return ResponseEntity.notFound().build();
 

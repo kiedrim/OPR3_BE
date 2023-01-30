@@ -11,9 +11,9 @@ public interface ProjectService {
 
     ResponseEntity<Project>getProjectById(Long id);
 
-    ResponseEntity<Object>addProject(Project newProject);
+    ResponseEntity<Project> addProject(Project newProject);
 
-    ResponseEntity<Object>updateProject(Project updatedProject, Long proId);
+    ResponseEntity<Project> updateProject(Project updatedProject, Long proId);
 
     ResponseEntity<Object>deleteProject(Long proId);
 

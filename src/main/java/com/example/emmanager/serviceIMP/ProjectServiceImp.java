@@ -42,14 +42,14 @@ public class ProjectServiceImp implements ProjectService {
     }
 
     @Override
-    public ResponseEntity<Object> addProject(Project project) {
+    public ResponseEntity<Project> addProject(Project project) {
         projectRepo.save(project);
 
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<Object> updateProject(Project newProject, Long proId) {
+    public ResponseEntity<Project> updateProject(Project newProject, Long proId) {
         if (!projectRepo.existsById(proId))
             return ResponseEntity.notFound().build();
 

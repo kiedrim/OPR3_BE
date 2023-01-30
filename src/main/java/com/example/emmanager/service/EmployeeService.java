@@ -9,9 +9,9 @@ public interface EmployeeService {
 
     ResponseEntity<Employee> getEmployeeById(Long employeeId);
 
-    ResponseEntity<Object> addEmployee(Employee employee, Long depId);
+    ResponseEntity<Employee> addEmployee(Employee employee, Long depId);
 
-    ResponseEntity<Object> updateEmployee(Employee employee, Long employeeId);
+    ResponseEntity<Employee> updateEmployee(Employee employee, Long employeeId);
 
     ResponseEntity<Object> deleteEmployee(Long employeeId);
 
